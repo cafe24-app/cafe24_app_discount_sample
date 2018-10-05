@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>관리자 페이지</title>
+    <!--css : semantic_ui-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css">
+</head>
+<body>
+<h1>할인앱 관리자 페이지</h1>
+
+<div class="inline field">
+    <div class="ui toggle checkbox">
+        <label>스크립트 설치</label>
+        <input type="checkbox" tabindex="0" class="hidden" value="Y" id="js_installed"
+               onchange="discount_fn.change_state_script();">
+    </div>
+</div>
+
+<div class="ui message">
+    <div class="header">
+        할인 시나리오
+    </div>
+    <p>
+        <br/>* 선택한 요일에 상품/주문 할인을 할 수 있다.
+        <br/>* 복수의 할인을 등록/적용 할 수 있다.
+        <br/>* 샵 넘버 1번의 쇼핑몰만을 대상으로 한다.
+    </p>
+</div>
+
+<h3>관리자 정보</h3>
+
+<div class="ui form">
+    <div class="fields">
+        <div class="field">
+            <label>mall_id</label>
+            <input type="text" placeholder="Mall_id" id="mall_id" th:value="${MallInfo.mall_id}" readonly>
+        </div>
+        <div class="field">
+            <label>user_name</label>
+            <input type="text" placeholder="user_name" th:value="${MallInfo.user_name}" readonly>
+        </div>
+        <div class="field">
+            <label>user_type</label>
+            <input type="text" placeholder="user_type" th:value="${MallInfo.user_type}" readonly>
+        </div>
+    </div>
+</div>
+
+<h3>할인 정보</h3>
+
+<form onsubmit="return false;">
+    <div class="ui form">
+        <div id="discount_form">
+            <div class="fields">
+                <div class="four wide field error">
+                    <label>할인명</label>
+                    <input type="text" class="info" placeholder="title" value="ex) 금요일마다 천원 할인" readonly>
+                </div>
+                <div class="two wide field error">
+                    <label>샵번호</label>
+                    <input type="number" placeholder="shop_no" value="1" readonly>
+                </div>
+                <div class="three wide field error">
+                    <label>할인값</label>
+                    <input type="number" placeholder="value" value="1000" readonly>
+                </div>
+                <div class="two wide field error">
+                    <label>할인구분</label>
+                    <select class="ui fluid dropdown">
+                        <option value="P" selected>상품할인</option>
+                    </select>
+                </div>
+                <div class="two wide field error">
+                    <label>condition</label>
+                    <select class="ui fluid dropdown">
+                        <option value="6" selected>금요일</option>
+                    </select>
+                </div>
+                <div class="two wide field error">
+                    <label>value_type</label>
+                    <select class="ui fluid dropdown">
+                        <option value="W" selected>정액제</option>
+                    </select>
+                </div>
+                <div class="three wide field error">
+                    <label>starts_at</label>
+                    <input type="datetime-local" placeholder="starts_at" value="2018-01-01T00:00" readonly>
+                </div>
+                <div class="three wide field error">
+                    <label>ends_at</label>
+                    <input type="datetime-local" placeholder="ends_at" value="2020-12-31T00:00" readonly>
+                </div>
+                <div class="four wide field error">
+                    <label>action</label>
+                    <button class="ui blue button" onclick="discount_fn.add_form();">
+                        추가
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div style="display: none">
+    <div class="fields discount_form" id="default_from">
+        <div class="four wide field">
+            <input type="text" placeholder="title" name="title" minlength="2" required>
+        </div>
+        <div class="two wide field">
+            <input type="number" placeholder="shop_no" name="shop_no" value="1" min="1" readonly required>
+        </div>
+        <div class="three wide field">
+            <input type="number" placeholder="value" name="value" min="0" required>
+        </div>
+        <div class="two wide field">
+            <select class="ui fluid dropdown" name="allocation_method" required>
+                <option value="P">상품 할인</option>
+                <option value="O">주문 할인</option>
+            </select>
+        </div>
+        <div class="two wide field">
+            <select class="ui fluid dropdown" name="condition" required>
+                <option value="1">일요일</option>
+                <option value="2">월요일</option>
+                <option value="3">화요일</option>
+                <option value="4">수요일</option>
+                <option value="5">목요일</option>
+                <option value="6">금요일</option>
+                <option value="7">토요일</option>
+            </select>
+        </div>
+        <div class="two wide field">
+            <select class="ui fluid dropdown" name="value_type" required>
+                <option value="W">정액제</option>
+                <option value="P">정률제</option>
+            </select>
+        </div>
+        <div class="three wide field">
+            <input type="datetime-local" placeholder="starts_at" name="starts_at" required>
+        </div>
+        <div class="three wide field">
+            <input type="datetime-local" placeholder="ends_at" name="ends_at" required>
+        </div>
+        <div class="four wide field">
+            <button class="ui green button btn_save" onclick="discount_fn.updateDiscount(this);">
+                저장
+            </button>
+            <button class="ui red button btn_del" onclick="discount_fn.deleteDiscount(this);">
+                삭제
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- js : jquery-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- js : semantic_ui-->
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.js"></script>
+
+<script>
+    var app_discount = {};
+    app_discount.data = {};
+    app_discount.mall_id = $('#mall_id').val();
+    app_discount.default_from = document.getElementById('default_from');
+    app_discount.discount_form = document.getElementById('discount_form');
+
+    var discount_fn = {
+        // 스크립트 설치/삭제 여부확인
+        change_state_script: function () {
+            $('#js_installed').attr('disabled', true);
+            var is_js_install = $('#js_installed').is(':checked');
+
+            if (is_js_install) {
+                discount_fn.create_scripttag();
+            } else {
+                discount_fn.delete_scripttag();
+            }
+
+            setTimeout(function () {    //스크립트 설치/삭제 후 2초간 버튼 disable
+                $('#js_installed').attr('disabled', false);
+            }, 1000);
+        },
+        //스크립스 설치 API 호출
+        create_scripttag: function () {
+
+            $.ajax({
+                url: 'admin/' + app_discount.mall_id + '/scripttags',
+                method: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    console.log('create_scripttag: apiCall OK!');
+                },
+                error: function (request, status, error) {
+                    alert("스크립트 설치에 실패하였습니다.");
+                    $('#js_installed').prop('checked', false);
+                    console.log('create_scripttag: apiCall Error!');
+                }
+            });
+        },
+        //스크립스 삭제 API 호출
+        delete_scripttag: function () {
+            $.ajax({
+                url: 'admin/' + app_discount.mall_id + '/scripttags',
+                method: 'DELETE',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    console.log('delete_scripttag: apiCall OK!');
+                },
+                error: function (request, status, error) {
+                    alert("스크립트 삭제에 실패하였습니다.");
+                    $('#js_installed').prop('checked', true);
+                    console.log('delete_scripttag: apiCall Error!');
+                }
+            });
+        },
+        //할인정보 조회
+        getDiscounts: function () {
+            $.ajax({
+                url: 'admin/' + app_discount.mall_id + '/discounts',
+                method: 'GET',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    console.log('getDiscounts: apiCall OK!');
+
+                    if (result.data == null) {
+                        app_discount.data.discounts = [];
+                        discount_fn.add_form();
+                        return;
+                    }
+
+                    //데이터 전역변수에 세팅
+                    app_discount.data.discounts = result.data;
+
+                    var cnt = result.data.length;
+                    //할인정보 Form에 세팅
+                    for (var i = 0; i < cnt; i++) {
+                        discount_fn.add_form();
+
+                        var discount = result.data[i];
+
+                        $('form input[name="title"]:eq(' + i + ')').val(discount.title);
+                        $('form input[name="shop_no"]:eq(' + i + ')').val(discount.shop_no);
+                        $('form input[name="value"]:eq(' + i + ')').val(discount.value);
+                        $('form select[name="condition"]:eq(' + i + ')').val(discount.condition);
+                        $('form select[name="allocation_method"]:eq(' + i + ')').val(discount.allocation_method);
+                        $('form select[name="value_type"]:eq(' + i + ')').val(discount.value_type);
+                        $('form input[name="starts_at"]:eq(' + i + ')').val(discount.starts_at);
+                        $('form input[name="ends_at"]:eq(' + i + ')').val(discount.ends_at);
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log('getDiscounts: apiCall Error');
+                }
+            });
+        },
+        //할인정보 저장
+        saveDiscounts: function () {
+            console.log('saveDiscounts: discounts : ' + JSON.stringify(app_discount.data));
+
+            $.ajax({
+                url: 'admin/' + app_discount.mall_id + '/discounts',
+                method: 'POST',
+                data: JSON.stringify(app_discount.data),
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    alert('저장에 성공하였습니다.');
+                    console.log('saveDiscounts OK!');
+                },
+                error: function (request, status, error) {
+                    alert('저장에 실패하였습니다.');
+                    console.log('saveDiscounts: apiCall Error');
+                }
+            });
+        },
+        //추가/수정된 할인정보 업데이트
+        updateDiscount: function (o) {
+            var discount = {};
+            var index = $('.btn_save').index(o);
+
+            discount.title = $('form input[name="title"]')[index].value;
+            discount.shop_no = $('form input[name="shop_no"]')[index].value;
+            discount.value = $('form input[name="value"]')[index].value;
+            discount.condition = $('form select[name="condition"]')[index].value;
+            discount.allocation_method = $('form select[name="allocation_method"]')[index].value;
+            discount.value_type = $('form select[name="value_type"]')[index].value;
+            discount.starts_at = $('form input[name="starts_at"]')[index].value;
+            discount.ends_at = $('form input[name="ends_at"]')[index].value;
+
+            app_discount.data.discounts[index] = discount;
+
+            discount_fn.saveDiscounts();
+        },
+        //삭제요청된 할인 정보 삭제
+        deleteDiscount: function (o) {
+            var index = $('.btn_del').index(o);
+
+            if (confirm('삭제하시겠습니까?')) {
+                $('.discount_form:eq(' + index + ')').remove();
+                app_discount.data.discounts.splice(index, 1);
+
+                discount_fn.saveDiscounts();
+            }
+        },
+        //할인 등록폼 추가
+        add_form: function () {
+            app_discount.discount_form.append(app_discount.default_from.cloneNode(true));
+        },
+        //스크립트 설치여부
+        getScripttags: function () {
+            $.ajax({
+                url: 'admin/' + app_discount.mall_id + '/scripttags',
+                method: 'GET',
+                dataType: 'json',
+                data: app_discount.mall_id,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    console.log('getScripttags: apiCall OK!');
+
+                    if (result.code == 200) {
+                        // $('#js_installed').is(':checked');
+                        $('#js_installed').prop('checked', true);
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log('getScripttags: apiCall Error');
+                }
+            });
+        }
+    };
+
+    //스크립트 설치 슬라이딩체크박스 : semantic_ui 관련
+    $('.ui.checkbox').checkbox();
+    //최초 할인 정보 등록
+    discount_fn.getDiscounts();
+    //스크립트 설치여부 조회
+    discount_fn.getScripttags();
+</script>
+</body>
+</html>
