@@ -6,7 +6,7 @@ public class Product extends BaseModel {
 
     private int basket_prd_no;
     private int product_no;
-    private int quantity;
+    private int product_qty;
     private int product_price;
     private int opt_price;
     private int product_sale_price;
@@ -17,12 +17,14 @@ public class Product extends BaseModel {
     /**
      * 추가적으로 사용가능한 변수 목록
      */
+
  /*
     private String delvtype;
     private String main_cate_no;
     private String opt_id;
     private String product_type;
     private String naver_used_exception;
+    private String quantity;
     private String check_quantity;
     private String check_quantity_type;
     private String option_add;
@@ -55,6 +57,7 @@ public class Product extends BaseModel {
     private String sIsBenefitEventProduct;
     private String check_buy_unit;
 */
+
     public int getBasket_prd_no() {
         return basket_prd_no;
     }
@@ -71,12 +74,12 @@ public class Product extends BaseModel {
         this.product_no = product_no;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getProduct_qty() {
+        return product_qty;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setProduct_qty(int product_qty) {
+        this.product_qty = product_qty;
     }
 
     public int getProduct_price() {

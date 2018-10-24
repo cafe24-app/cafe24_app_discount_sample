@@ -64,7 +64,7 @@ public class DiscountService {
 
                 item_codes.add(product.getItem_code());
 
-                sum_order_price += product.getProduct_price() * product.getQuantity();
+                sum_order_price += product.getProduct_price() * product.getProduct_qty();
                 sum_order_opt_price += product.getOpt_price();
             }
 

@@ -1,10 +1,10 @@
-![Cafe24 개발자 센터](image/cafe24_developers.png) Discount Sample
+![cafe24 개발자 센터](image/cafe24_developers.png) Discount Sample
 ==============================
 
 > #### 참조
 >> 할인 앱 가이드 :  [discount guide](https://developer.cafe24.com/guide/front/develop?guide_no=164)\
->> Cafe24 개발자 센터 : [developer.cafe24.com](https://developer.cafe24.com/)\
->> Cafe24 앱 스토어 : [store.cafe24.com](https://store.cafe24.com/)
+>> cafe24 개발자 센터 : [developer.cafe24.com](https://developer.cafe24.com/)\
+>> cafe24 앱 스토어 : [store.cafe24.com](https://store.cafe24.com/)
 
 > 
 >> Language : java 8 \
@@ -75,4 +75,10 @@
      
 ## 지원
 
-Cafe24 Discount Sample을 이용 중 버그를 발견하거나, 소스 코드에 대해 문의 사항이 있으면 [Issues](https://github.com/cafe24-app/app_discount_sample/issues)에 등록해 주세요.
+cafe24 Discount Sample을 이용 중 버그를 발견하거나, 소스 코드에 대해 문의 사항이 있으면 [Issues](https://github.com/cafe24-app/app_discount_sample/issues)에 등록해 주세요.
+
+
+## 업데이트 안내
+* 2018.10.24 - aBasketProductData, aBasketProductOrderData 변수에 "product_qty" 항목이 추가
+    * product_qty : 실제 구매 수량
+    * quantity : cafe24 솔루션 할인 1+N의 적용 수량
