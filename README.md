@@ -79,6 +79,9 @@ cafe24 Discount Sample을 이용 중 버그를 발견하거나, 소스 코드에
 
 
 ## 업데이트 안내
-* 2018.10.24 - aBasketProductData, aBasketProductOrderData 변수에 "product_qty" 항목이 추가
+* 2018.10.24 - `aBasketProductData`, `aBasketProductOrderData` 변수에 `product_qty` 항목이 추가
     * product_qty : 실제 구매 수량
     * quantity : cafe24 솔루션 할인 1+N의 적용 수량
+* 2018.10.30 - JS 변수 `time` 밀리초 단위에서 초 단위로 변경
+    * `new Date().getTime()` -> `Math.ceil(new Date().getTime() / 1000)`
+   

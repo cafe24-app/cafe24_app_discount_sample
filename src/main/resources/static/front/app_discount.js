@@ -8,7 +8,7 @@ function app_do_sale(params) {
     app_discount_order.guest_key = params.guest_key;
     app_discount_order.member_group_no = params.group_no;
     app_discount_order.product = params.products;
-    app_discount_order.time = new Date().getTime();
+    app_discount_order.time = Math.ceil(new Date().getTime() / 1000);
 
     var opts = {
         method: 'POST',
