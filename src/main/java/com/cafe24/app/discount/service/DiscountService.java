@@ -187,7 +187,7 @@ public class DiscountService {
         }
 
         //할인 적용 일시 확인
-        Date time = new Date(Long.parseLong((orderInfo.getTime())));
+        Date time = new Date(Long.parseLong((orderInfo.getTime())) * 1000);
         LocalDateTime localDateTime = LocalDateTime.ofInstant(time.toInstant(), ZoneId.systemDefault());
         if (discInfo.getStarts_at() != null)
             if (localDateTime.isBefore(LocalDateTime.parse(discInfo.getStarts_at())) || localDateTime.isAfter(LocalDateTime.parse(discInfo.getEnds_at()))) {
