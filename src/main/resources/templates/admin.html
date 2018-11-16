@@ -72,23 +72,23 @@
                     </select>
                 </div>
                 <div class="two wide field error">
-                    <label>condition</label>
+                    <label>할인조건</label>
                     <select class="ui fluid dropdown">
                         <option value="6" selected>금요일</option>
                     </select>
                 </div>
                 <div class="two wide field error">
-                    <label>value_type</label>
+                    <label>정률/정액</label>
                     <select class="ui fluid dropdown">
                         <option value="W" selected>정액제</option>
                     </select>
                 </div>
                 <div class="three wide field error">
-                    <label>starts_at</label>
+                    <label>할인 적용일</label>
                     <input type="datetime-local" placeholder="starts_at" value="2018-01-01T00:00" readonly>
                 </div>
                 <div class="three wide field error">
-                    <label>ends_at</label>
+                    <label>할인 마감일</label>
                     <input type="datetime-local" placeholder="ends_at" value="2020-12-31T00:00" readonly>
                 </div>
                 <div class="four wide field error">
@@ -178,7 +178,7 @@
                 discount_fn.delete_scripttag();
             }
 
-            setTimeout(function () {    //스크립트 설치/삭제 후 2초간 버튼 disable
+            setTimeout(function () {    //스크립트 설치/삭제 후 1초간 버튼 disable
                 $('#js_installed').attr('disabled', false);
             }, 1000);
         },
