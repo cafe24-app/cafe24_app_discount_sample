@@ -48,6 +48,27 @@
         
         ...... 상단 코드 생략 .......
         
+          var opts = {
+                method: 'POST',
+                body: JSON.stringify(app_discount_order),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            };
+            fetch('[App Discount url]', opts).then(function(response) {<-------------------------------- [App Discount url] 수정
+                return response.json();
+            }).then(function(result) {
+                console.log('App_discount success!');
+                console.log(JSON.stringify(result));
+        
+                AppDiscount.setAppDiscountPrice(JSON.stringify(result.data));
+        
+                console.log('App_discount OK!');
+            });
+            
+            
+        ...... 중략 .......
+       
        
         //CAFE24FrontAPI 활용 기본정보 조회
         (function (CAFE24API) {
