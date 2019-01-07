@@ -12,51 +12,7 @@ public class Product extends BaseModel {
     private int product_sale_price;
     private int discount_price;
     private String item_code;
-    private List<AppDiscountInfo> app_discount_info;
-
-    /**
-     * 추가적으로 사용가능한 변수 목록
-     */
-
- /*
-    private String delvtype;
-    private String main_cate_no;
-    private String opt_id;
-    private String product_type;
-    private String naver_used_exception;
-    private String quantity;
-    private String check_quantity;
-    private String check_quantity_type;
-    private String option_add;
-    private String product_min;
-    private String product_max_type;
-    private String product_max;
-    private String product_code;l
-    private String product_sum_price;
-    private String product_name;
-    private String opt_str;
-    private String option_type;
-    private String has_option;
-    private String has_option_add;
-    private String is_set_product;
-    private String set_product_name;
-    private String set_product_no;
-    private String item_listing_type;
-    private String is_oversea_able;
-    private String set_product_list;
-    private String buy_unit;
-    private String check_buy_unit_type;
-    private String wish_selected_item;
-    private String wish_save_data;
-    private String olink_data;
-    private String product_paymethod;
-    private String option_attached_file_info_json;
-    private String total_unit_add_sale;
-    private String use_store_pickup;
-    private String layer_option_str;
-    private String sIsBenefitEventProduct;
-    private String check_buy_unit;
-*/
+    private List<AppDiscountInfo> discount_info;
 
     public int getBasket_prd_no() {
         return basket_prd_no;
@@ -123,10 +79,10 @@ public class Product extends BaseModel {
     }
 
     public List<AppDiscountInfo> getApp_discount_info() {
-        return app_discount_info;
+        return discount_info;
     }
 
     public void setApp_discount_info(List<AppDiscountInfo> app_discount_info) {
-        this.app_discount_info = app_discount_info;
+        this.discount_info = app_discount_info;
     }
 }

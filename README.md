@@ -29,42 +29,43 @@
         * File : src\main\java\com\cafe24\app\discount\core\AppEnv.java
         ``` 
         //App key
-        public static final String CLIENT_ID = "[App key]";<-------------------------------- [App key] 수정
+        public static final String CLIENT_ID = "[App key]";             //<-------------------------------- [App key] 수정
         //App secret key
-        public static final String SECRET_KEY = "[Secre key]";<-------------------------------- [Secre key] 수정
+        public static final String SECRET_KEY = "[Secre key]";          //<-------------------------------- [Secre key] 수정
         //Service key
-        public static final String SERVICE_KEY = "[Service key]";<-------------------------------- [Service key] 수정
+        public static final String SERVICE_KEY = "[Service key]";       //<-------------------------------- [Service key] 수정
         //app Url
-        public static final String APP_BASE_URL = "[App host]";<-------------------------------- [App host] 수정
+        public static final String APP_BASE_URL = "[App host]";         //<-------------------------------- [App host] 수정
         //app script Url
-        public static final String APP_JS_URL = "[App js url]";<-------------------------------- [App js url] 수정
+        public static final String APP_JS_URL = "[App js url]";         //<-------------------------------- [App js url] 수정
         //app retrun Url
-        public static final String APP_RETURN_URL = "[App return url]";<-------------------------------- [App return url] 수정
+        public static final String APP_RETURN_URL = "[App return url]"; //<-------------------------------- [App return url] 수정
         //app scope
-        public static final String APP_SCOPE = "[App scope]";<-------------------------------- [App scope] 수정
+        public static final String APP_SCOPE = "[App scope]";           //<-------------------------------- [App scope] 수정
         ```
        * File : src\main\resources\static\front\app_discount.js
         ``` 
         
         ...... 상단 코드 생략 .......
         
-          var opts = {
-                method: 'POST',
-                body: JSON.stringify(app_discount_order),
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8"
-                }
-            };
-            fetch('[App Discount url]', opts).then(function(response) {<-------------------------------- [App Discount url] 수정
-                return response.json();
-            }).then(function(result) {
-                console.log('App_discount success!');
-                console.log(JSON.stringify(result));
-        
-                AppDiscount.setAppDiscountPrice(JSON.stringify(result.data));
-        
-                console.log('App_discount OK!');
-            });
+          $.ajax({
+              url: '[App Discount url]',   //<-------------------------------- [App Discount url] 수정
+              type: 'POST',
+              cache: false,
+              data: JSON.stringify(app_discount_order),
+              contentType: 'application/json; charset=utf-8',
+              success: function (result) {
+                  console.log('App_discount success!');
+                  console.log(JSON.stringify(result));
+      
+                  AppDiscount.setAppDiscountPrice(JSON.stringify(result.data));
+                  console.log('App_discount OK!');
+      
+              },
+              error: function (request, status, error) {
+                  console.log('App_discount error!');
+              }
+          });
             
             
         ...... 중략 .......
@@ -74,19 +75,21 @@
         (function (CAFE24API) {
             app_discount_req_params.ec_mall_id = CAFE24API.MALL_ID;
             app_discount_req_params.shop_no = CAFE24API.SHOP_NO;
-    
+
             // 회원정보 조회
             CAFE24API.getMemberInfo(function (res) {
-                app_discount_req_params.member_id = res.id.member_id;
                 app_discount_req_params.group_no = Number(res.id.group_no);
-    
-                if (app_discount_req_params.member_id == null) {
+
+                if (res.id.member_id == null) {
+                    app_discount_req_params.member_id = null;
                     app_discount_req_params.guest_key = res.id.guest_id;
+                } else {
+                    app_discount_req_params.member_id = res.id.member_id;
                 }
-    
-                app_do_sale(app_discount_req_params);
+
+                discount_App.discount_do(app_discount_req_params);
             });
-        })(CAFE24API.init('[App key]'));<-------------------------------- [App key] 수정
+        })(CAFE24API.init('[App key]'));    //<-------------------------------- [App key] 수정
 
         ...... 하단 코드 생략 .......
 
@@ -102,6 +105,10 @@
 cafe24 Discount Sample을 이용 중 버그를 발견하거나, 소스 코드에 대해 문의 사항이 있으면 [Issues](https://github.com/cafe24-app/app_discount_sample/issues)에 등록해 주세요.
 
 ## 업데이트 안내
+* 2019.01.07 
+    * README 가이드 수정 
+    * 응답 데이터 'product_discount'내부의 field_name 변경 : 'app_discount_info' -> 'discount_info'
+
 * 2018.11.16 
     * README 가이드 수정 
     * HttpClient.java - Error시 응답메시지 출력

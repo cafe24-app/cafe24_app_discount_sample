@@ -59,6 +59,7 @@ public class AppService {
         AccessTokenRequest request = new AccessTokenRequest(mall_id);
 
         boolean has_token = storeToken.contains(mall_id);
+        log.info("setAccessToken has_token : {}" + has_token);
 
         if (has_token && !storeToken.token_expired(mall_id)) return;    // Access_token 만료 전
 

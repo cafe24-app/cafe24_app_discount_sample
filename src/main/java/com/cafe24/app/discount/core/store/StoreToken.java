@@ -93,6 +93,7 @@ public class StoreToken implements Store<AccessToken> {
      * @return
      */
     public boolean token_expired(String key) {
+        log.info("token_expired key : {}", key);
         AccessToken accessToken = this.store.get(key);
         Date expires_at = null;
 
@@ -112,16 +113,19 @@ public class StoreToken implements Store<AccessToken> {
      * @return
      */
     public boolean refresh_token_expired(String key) {
+        log.info("refresh_token_expired key : {}", key);
+
+        boolean isExpiredToken = true;
         AccessToken accessToken = this.store.get(key);
-        Date expires_at = null;
 
         try {
-            expires_at = simpleDateFormat.parse(accessToken.getRefresh_token_expires_at());
+            Date expires_at = simpleDateFormat.parse(accessToken.getRefresh_token_expires_at());
+            isExpiredToken = new Date().after(expires_at);
         } catch (ParseException e) {
             e.printStackTrace();
+        }finally {
+            return isExpiredToken;
         }
-
-        return new Date().after(expires_at);
     }
 
     /**

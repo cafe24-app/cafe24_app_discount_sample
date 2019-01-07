@@ -8,10 +8,7 @@ import com.cafe24.app.discount.utils.Commons;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DiscountController {
@@ -26,7 +23,7 @@ public class DiscountController {
      * @param order
      * @return
      */
-    @CrossOrigin
+    @CrossOrigin(origins = "*", methods = {RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.PATCH})
     @RequestMapping(path = "/order")
     public String app_discount(@RequestBody(required = false) OrderInfo order) {
         String trace_no = Commons.makeTrace_no();
