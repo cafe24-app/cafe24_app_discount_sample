@@ -19,4 +19,16 @@ public class ReturnMsg extends BaseModel {
         this.code = code;
         this.message = message;
     }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Object getData() {
+        return data;
+    }
 }

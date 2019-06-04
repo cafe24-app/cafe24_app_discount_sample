@@ -77,7 +77,8 @@ public class AppController {
         log.info("admin codeQueryStr : {}", codeQueryStr);
 
         //데이터위변조 체크 - CSRF 공격대비
-        if(!codeQueryStr.getState().equals(session.getId()))return "error";
+        if(isValidState(codeQueryStr, session.getId()) == false)return "error";
+        log.info("데이터위변조 체크 : OK");
 
         MallInfo mallInfo = (MallInfo) session.getAttribute("MallInfo");
         log.info("admin session.MallInfo : {}", mallInfo.toString());
@@ -88,6 +89,17 @@ public class AppController {
         model.addAttribute("MallInfo", mallInfo);
 
         return "admin";
+    }
+
+    /**
+     * CSRF 공격대비 - state 체크
+     *
+     * @param codeQueryStr
+     * @param sessionId
+     * @return
+     */
+    private boolean isValidState(CodeQueryString codeQueryStr, String sessionId) {
+        return codeQueryStr.getState().equals(sessionId);
     }
 
 }

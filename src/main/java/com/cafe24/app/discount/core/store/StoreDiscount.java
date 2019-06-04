@@ -23,6 +23,11 @@ public class StoreDiscount implements Store<List<DiscountInfo>> {
     }
 
     @Override
+    public void remove(String key) {
+        this.store.remove(key);
+    }
+
+    @Override
     public boolean contains(String key) {
         return this.store.containsKey(key);
     }

@@ -43,6 +43,15 @@ public class StoreToken implements Store<AccessToken> {
     public void put(String key, AccessToken value) {
         store.put(key, value);
     }
+    /**
+     * AccessToken 저장
+     *
+     * @param key
+     */
+    @Override
+    public void remove(String key) {
+       store.remove(key);
+    }
 
     /**
      * 토큰 유무 조회

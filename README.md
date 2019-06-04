@@ -107,6 +107,7 @@ cafe24 Discount Sample을 이용 중 버그를 발견하거나, 소스 코드에
 ## 업데이트 안내
 * 2019.06.04
     * app_discount.js에 ```EC_ORDER_ORDERFORM_CHANGE``` bind 추가
+    * App 삭제/만료 Webhook 처리 로직 추가
      
 * 2019.01.07 
     * README 가이드 수정 

@@ -19,13 +19,12 @@ public class DiscountController {
 
     /**
      * 할인 실행
-     *
      * @param order
      * @return
      */
     @CrossOrigin(origins = "*", methods = {RequestMethod.OPTIONS, RequestMethod.POST, RequestMethod.PATCH})
     @RequestMapping(path = "/order")
-    public String app_discount(@RequestBody(required = false) OrderInfo order) {
+    public ReturnMsg app_discount(@RequestBody(required = false) OrderInfo order) {
         String trace_no = Commons.makeTrace_no();
         log.info("[{}]app_discount order : {}", trace_no, order.toString());
 
@@ -37,6 +36,6 @@ public class DiscountController {
         service.setHmac(resOrder, trace_no);
         log.info("[{}]app_discount resOrder(+hmac) : {}", trace_no, resOrder.toString());
 
-        return new ReturnMsg(resOrder).toString();
+        return new ReturnMsg(resOrder.toString());
     }
 }

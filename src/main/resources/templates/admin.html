@@ -24,7 +24,6 @@
     <p>
         <br/>* 선택한 요일에 상품/주문 할인을 할 수 있다.
         <br/>* 복수의 할인을 등록/적용 할 수 있다.
-        <br/>* 샵 넘버 1번의 쇼핑몰만을 대상으로 한다.
     </p>
 </div>
 
@@ -61,26 +60,26 @@
                     <label>샵번호</label>
                     <input type="number" placeholder="shop_no" value="1" readonly>
                 </div>
-                <div class="three wide field error">
-                    <label>할인값</label>
-                    <input type="number" placeholder="value" value="1000" readonly>
-                </div>
                 <div class="two wide field error">
                     <label>할인구분</label>
                     <select class="ui fluid dropdown">
                         <option value="P" selected>상품할인</option>
                     </select>
                 </div>
-                <div class="two wide field error">
-                    <label>할인조건</label>
-                    <select class="ui fluid dropdown">
-                        <option value="6" selected>금요일</option>
-                    </select>
+                <div class="three wide field error">
+                    <label>할인값</label>
+                    <input type="number" placeholder="value" value="1000" readonly>
                 </div>
                 <div class="two wide field error">
                     <label>정률/정액</label>
                     <select class="ui fluid dropdown">
                         <option value="W" selected>정액제</option>
+                    </select>
+                </div>
+                <div class="two wide field error">
+                    <label>할인조건</label>
+                    <select class="ui fluid dropdown">
+                        <option value="6" selected>금요일</option>
                     </select>
                 </div>
                 <div class="three wide field error">
@@ -110,17 +109,24 @@
         <div class="two wide field">
             <input type="number" placeholder="shop_no" name="shop_no" value="1" min="1" readonly required>
         </div>
-        <div class="three wide field">
-            <input type="number" placeholder="value" name="value" min="0" required>
-        </div>
         <div class="two wide field">
             <select class="ui fluid dropdown" name="allocation_method" required>
                 <option value="P">상품 할인</option>
                 <option value="O">주문 할인</option>
             </select>
         </div>
+        <div class="three wide field">
+            <input type="number" placeholder="value" name="value" min="0" required>
+        </div>
+        <div class="two wide field">
+            <select class="ui fluid dropdown" name="value_type" required>
+                <option value="W">정액제</option>
+                <option value="P">정률제</option>
+            </select>
+        </div>
         <div class="two wide field">
             <select class="ui fluid dropdown" name="condition" required>
+                <option value="99">매일</option>
                 <option value="1">일요일</option>
                 <option value="2">월요일</option>
                 <option value="3">화요일</option>
@@ -128,12 +134,6 @@
                 <option value="5">목요일</option>
                 <option value="6">금요일</option>
                 <option value="7">토요일</option>
-            </select>
-        </div>
-        <div class="two wide field">
-            <select class="ui fluid dropdown" name="value_type" required>
-                <option value="W">정액제</option>
-                <option value="P">정률제</option>
             </select>
         </div>
         <div class="three wide field">

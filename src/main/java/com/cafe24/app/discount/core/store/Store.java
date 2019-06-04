@@ -6,5 +6,7 @@ public interface Store<T> {
 
     void put(String key, T value);
 
+    void remove(String key);
+
     boolean contains(String key);
 }

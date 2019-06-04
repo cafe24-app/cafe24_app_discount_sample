@@ -200,7 +200,7 @@ public class DiscountService {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         int day_num = calendar.get(Calendar.DAY_OF_WEEK);
-        if (day_num != discInfo.getCondition()) {
+        if (discInfo.getCondition() != 99 && day_num != discInfo.getCondition()) {
             log.info("[{}] {}에 대한 할인 정책이 없습니다.(condition - day_num)", trace_no, day_num);
             log.info("[{}] {}에 대한 할인 정책이 없습니다.(condition - discInfo.getCondition())", trace_no, discInfo.getCondition());
 
