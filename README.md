@@ -105,6 +105,9 @@
 cafe24 Discount Sample을 이용 중 버그를 발견하거나, 소스 코드에 대해 문의 사항이 있으면 [Issues](https://github.com/cafe24-app/app_discount_sample/issues)에 등록해 주세요.
 
 ## 업데이트 안내
+* 2019.06.04
+    * app_discount.js에 ```EC_ORDER_ORDERFORM_CHANGE``` bind 추가
+     
 * 2019.01.07 
     * README 가이드 수정 
     * 응답 데이터 'product_discount'내부의 field_name 변경 : 'app_discount_info' -> 'discount_info'

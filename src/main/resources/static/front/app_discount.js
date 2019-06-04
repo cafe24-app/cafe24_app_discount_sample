@@ -19,9 +19,8 @@ var discount_App = {
             success: function (result) {
                 console.log('App_discount success!');
                 console.log(JSON.stringify(result));
-
                 AppDiscount.setAppDiscountPrice(JSON.stringify(result.data));
-                console.log('App_discount OK!');
+
             },
             error: function (request, status, error) {
                 console.log('App_discount error!');
@@ -73,7 +72,15 @@ var discount_App = {
 
 //window.onload 확인 후 이벤트 리스너에 등록
 if (document.readyState == 'complete') {
+    $("body").bind("EC_ORDER_ORDERFORM_CHANGE", function (e, oParam) {
+        if (oParam.event_type !== 'product_change') {
+            return;
+        }
+        discount_App.discount_init();
+    });
+
     discount_App.discount_init();
 } else {
     window.addEventListener('load', discount_App.discount_init);
 }
+
