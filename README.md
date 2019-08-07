@@ -2,7 +2,7 @@
 ==============================
 
 > #### 참조
->> 할인 앱 가이드 :  [discount guide](https://developer.cafe24.com/guide/front/develop?guide_no=164)\
+>> 할인 앱 가이드 :  [discount guide](https://developer.cafe24.com/doc/front/refer/discount)\
 >> cafe24 개발자 센터 : [developer.cafe24.com](https://developer.cafe24.com/)\
 >> cafe24 앱 스토어 : [store.cafe24.com](https://store.cafe24.com/)
 
@@ -13,13 +13,13 @@
 
 ## 이용 방법
 * 선행 조건 [개발자 센터](https://developer.cafe24.com/)에 가입후 앱을 등록한다.
-    1. 기본정보 등록 ([App Guide](https://developer.cafe24.com/guide/front/intro?guide_no=47))
+    1. 기본정보 등록 ([App Guide](https://developer.cafe24.com/doc/front/develop/developedit))
         ![기본 정보 세팅](image/app_dicount_set_info.PNG)
     
-    2. 스코프 획득 ([Scope Guide](https://developer.cafe24.com/guide/front/develop?guide_no=58))
+    2. 스코프 획득 ([Scope Guide](https://developer.cafe24.com/doc/front/develop/api/scope))
         ![스코프 획득](image/app_dicount_scope.PNG)
         
-    3. 인증 정보 획득 ([Auth Guide](https://developer.cafe24.com/guide/front/develop?guide_no=74))
+    3. 인증 정보 획득 ([Auth Guide](https://developer.cafe24.com/doc/front/develop/oauth))
         ![인증 정보 획득](image/app_dicount_auth_info.PNG)
 
 * 개발 환경 세팅
