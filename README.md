@@ -28,71 +28,31 @@
     2. 사용자 환경을 세팅합니다.(대괄호([] 영역 유효값으로 치환)
         * File : src\main\java\com\cafe24\app\discount\core\AppEnv.java
         ``` 
-        //App key
-        public static final String CLIENT_ID = "[App key]";             //<-------------------------------- [App key] 수정
-        //App secret key
-        public static final String SECRET_KEY = "[Secre key]";          //<-------------------------------- [Secre key] 수정
-        //Service key
-        public static final String SERVICE_KEY = "[Service key]";       //<-------------------------------- [Service key] 수정
-        //app Url
-        public static final String APP_BASE_URL = "[App host]";         //<-------------------------------- [App host] 수정
-        //app script Url
-        public static final String APP_JS_URL = "[App js url]";         //<-------------------------------- [App js url] 수정
-        //app retrun Url
-        public static final String APP_RETURN_URL = "[App return url]"; //<-------------------------------- [App return url] 수정
-        //app scope
-        public static final String APP_SCOPE = "[App scope]";           //<-------------------------------- [App scope] 수정
+           //TODO : 운영시 정보 기입 후 사용 : App key
+           public static final String CLIENT_ID = "[App key]";             //<-------------------------------- [App key] 수정
+           //TODO : 운영시 정보 기입 후 사용 : App secret key
+           public static final String SECRET_KEY = "[Secret key]";          //<-------------------------------- [Secret key] 수정
+           //TODO : 운영시 정보 기입 후 사용 : Service key
+           public static final String SERVICE_KEY = "[Service key]";       //<-------------------------------- [Service key] 수정
+           //TODO : 운영시 정보 기입 후 사용 : app Url
+           public static final String APP_BASE_URL = "[App host]";         //<-------------------------------- [App host] 수정
+           //TODO : 운영시 정보 기입 후 사용 : app script Url
+           public static final String APP_JS_URL = "[App js url]";         //<-------------------------------- [App js url] 수정
+           //TODO : 운영시 정보 기입 후 사용 : app retrun Url
+           public static final String APP_RETURN_URL = "[App return url]"; //<-------------------------------- [App return url] 수정
+           //TODO : 운영시 정보 기입 후 사용 : app scope
+           public static final String APP_SCOPE = "mall.read_application,mall.write_application,mall.read_customer,mall.read_order";
         ```
        * File : src\main\resources\static\front\app_discount.js
         ``` 
         
         ...... 상단 코드 생략 .......
         
-          $.ajax({
-              url: '[App Discount url]',   //<-------------------------------- [App Discount url] 수정
-              type: 'POST',
-              cache: false,
-              data: JSON.stringify(app_discount_order),
-              contentType: 'application/json; charset=utf-8',
-              success: function (result) {
-                  console.log('App_discount success!');
-                  console.log(JSON.stringify(result));
-      
-                  AppDiscount.setAppDiscountPrice(JSON.stringify(result.data));
-                  console.log('App_discount OK!');
-      
-              },
-              error: function (request, status, error) {
-                  console.log('App_discount error!');
-              }
-          });
-            
-            
-        ...... 중략 .......
-       
-       
-        //CAFE24FrontAPI 활용 기본정보 조회
-        (function (CAFE24API) {
-            app_discount_req_params.ec_mall_id = CAFE24API.MALL_ID;
-            app_discount_req_params.shop_no = CAFE24API.SHOP_NO;
-
-            // 회원정보 조회
-            CAFE24API.getMemberInfo(function (res) {
-                app_discount_req_params.group_no = Number(res.id.group_no);
-
-                if (res.id.member_id == null) {
-                    app_discount_req_params.member_id = null;
-                    app_discount_req_params.guest_key = res.id.guest_id;
-                } else {
-                    app_discount_req_params.member_id = res.id.member_id;
-                }
-
-                discount_App.discount_do(app_discount_req_params);
-            });
-        })(CAFE24API.init('[App key]'));    //<-------------------------------- [App key] 수정
+           //TODO : 운영시 discount_url, client_id 수정
+           const discount_url = "[Discount url]";//<-------------------------------- [Discount url] 수정
+           const client_id = "[App key]";      //<-------------------------------- [App key] 수정
 
         ...... 하단 코드 생략 .......
-
 
         ```
 

@@ -1,8 +1,8 @@
 var cafe24_discount_sample_app = (function () {
     'use strict';
     //TODO : 운영시 discount_url, client_id 수정
-    const discount_url = "https://devmode.cafe24.com/discount_qa/order";//<-------------------------------- [Discount url] 수정
-    const client_id = "RTIQzB9OExDhANH07QKPsA";      //<-------------------------------- [App key] 수정
+    const discount_url = "[Discount url]";//<-------------------------------- [Discount url] 수정
+    const client_id = "[App key]";        //<-------------------------------- [App key] 수정
 
     return {
         discount_do: function (params) {            //App의 할인 로직 호출
