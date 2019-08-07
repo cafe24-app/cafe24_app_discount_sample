@@ -49,23 +49,23 @@ public class DiscountService {
 
             /* 요청된 모든 상품을 조회 */
             for (Product product : products) {
-                int sum_price_n_optPrice = product.getOpt_price() + product.getProduct_price();
+                int sum_price_n_optPrice = product.getOption_price() + product.getPrice();
                 int discount_price = getDiscount_price(disInfo.getValue_type(), disInfo.getValue(), sum_price_n_optPrice);
 
                 /* 상품 할인의 경우에 요청된 모든 상품에 할인 금액 세팅 */
                 if (is_discount && "P".equals(disInfo.getAllocation_method())) {
-                    product.setDiscount_price(discount_price + product.getDiscount_price());
+                    product.setApp_non_quantity_based_discount(discount_price + product.getApp_non_quantity_based_discount());
 
-                    if (product.getApp_discount_info() == null)
-                        product.setApp_discount_info(new ArrayList<>());
+                    if (product.getApp_product_discount_info() == null)
+                        product.setApp_product_discount_info(new ArrayList<>());
 
-                    product.getApp_discount_info().add(new AppDiscountInfo(product_sale_no, discount_price));
+                    product.getApp_product_discount_info().add(new AppDiscountInfo(product_sale_no, discount_price, "I"));
                 }
 
-                item_codes.add(product.getItem_code());
+                item_codes.add(product.getVariant_code());
 
-                sum_order_price += product.getProduct_price() * product.getProduct_qty();
-                sum_order_opt_price += product.getOpt_price();
+                sum_order_price += product.getPrice() * product.getQuantity();
+                sum_order_opt_price += product.getOption_price();
             }
 
             Config config = new Config();
@@ -73,12 +73,14 @@ public class DiscountService {
             config.setValue(disInfo.getValue());
             config.setValue_type(disInfo.getValue_type());
 
+
             /* 할인정보세팅 - 주문할인의 경우 */
             if (is_discount && "O".equals(disInfo.getAllocation_method())) {
+                config.setDiscount_unit("I");
                 int sum_price_n_optPrice = sum_order_price + sum_order_opt_price;
                 int discount_price = getDiscount_price(disInfo.getValue_type(), disInfo.getValue(), sum_price_n_optPrice);
 
-                OrderDiscount discountVo = new OrderDiscount(String.valueOf(order_discount_no), String.valueOf(discount_price), String.join(",", item_codes));
+                OrderDiscount discountVo = new OrderDiscount(order_discount_no, discount_price, String.join(",", item_codes));
                 order_discounts.add(discountVo);
 
                 //주문할인 정보 생성
@@ -94,6 +96,7 @@ public class DiscountService {
             }
             /* 할인정보세팅 - 상품 할인의 경우 */
             else if (is_discount && "P".equals(disInfo.getAllocation_method())) {
+                config.setDiscount_unit("U");
                 //주문할인 정보 생성
                 AppDiscount appDisc = new AppDiscount();
                 appDisc.setNo(product_sale_no);

@@ -4,22 +4,24 @@ import java.util.List;
 
 public class Product extends BaseModel {
 
-    private int basket_prd_no;
+    private int basket_product_no;
     private int product_no;
-    private int product_qty;
-    private int product_price;
-    private int opt_price;
-    private int product_sale_price;
-    private int discount_price;
-    private String item_code;
-    private List<AppDiscountInfo> discount_info;
+    private int quantity;
+    private int price;
+    private int option_price;
+    private int quantity_based_discount;
+    private int non_quantity_based_discount;
+    private int app_quantity_based_discount;
+    private int app_non_quantity_based_discount;
+    private String variant_code;
+    private List<AppDiscountInfo> app_product_discount_info;
 
-    public int getBasket_prd_no() {
-        return basket_prd_no;
+    public int getBasket_product_no() {
+        return basket_product_no;
     }
 
-    public void setBasket_prd_no(int basket_prd_no) {
-        this.basket_prd_no = basket_prd_no;
+    public void setBasket_product_no(int basket_product_no) {
+        this.basket_product_no = basket_product_no;
     }
 
     public int getProduct_no() {
@@ -30,59 +32,67 @@ public class Product extends BaseModel {
         this.product_no = product_no;
     }
 
-    public int getProduct_qty() {
-        return product_qty;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setProduct_qty(int product_qty) {
-        this.product_qty = product_qty;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public int getProduct_price() {
-        return product_price;
+    public int getPrice() {
+        return price;
     }
 
-    public void setProduct_price(int product_price) {
-        this.product_price = product_price;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public int getOpt_price() {
-        return opt_price;
+    public int getOption_price() {
+        return option_price;
     }
 
-    public void setOpt_price(int opt_price) {
-        this.opt_price = opt_price;
+    public void setOption_price(int option_price) {
+        this.option_price = option_price;
     }
 
-    public int getProduct_sale_price() {
-        return product_sale_price;
+    public int getQuantity_based_discount() {
+        return quantity_based_discount;
     }
 
-    public void setProduct_sale_price(int product_sale_price) {
-        this.product_sale_price = product_sale_price;
+    public void setQuantity_based_discount(int quantity_based_discount) {
+        this.quantity_based_discount = quantity_based_discount;
     }
 
-    public int getDiscount_price() {
-        return discount_price;
+    public int getApp_non_quantity_based_discount() {
+        return app_non_quantity_based_discount;
     }
 
-    public void setDiscount_price(int discount_price) {
-        this.discount_price = discount_price;
+    public void setApp_non_quantity_based_discount(int app_non_quantity_based_discount) {
+        this.app_non_quantity_based_discount = app_non_quantity_based_discount;
     }
 
-    public String getItem_code() {
-        return item_code;
+    public int getApp_quantity_based_discount() {
+        return app_quantity_based_discount;
     }
 
-    public void setItem_code(String item_code) {
-        this.item_code = item_code;
+    public void setApp_quantity_based_discount(int app_quantity_based_discount) {
+        this.app_quantity_based_discount = app_quantity_based_discount;
     }
 
-    public List<AppDiscountInfo> getApp_discount_info() {
-        return discount_info;
+    public String getVariant_code() {
+        return variant_code;
     }
 
-    public void setApp_discount_info(List<AppDiscountInfo> app_discount_info) {
-        this.discount_info = app_discount_info;
+    public void setVariant_code(String variant_code) {
+        this.variant_code = variant_code;
+    }
+
+    public List<AppDiscountInfo> getApp_product_discount_info() {
+        return app_product_discount_info;
+    }
+
+    public void setApp_product_discount_info(List<AppDiscountInfo> app_product_discount_info) {
+        this.app_product_discount_info = app_product_discount_info;
     }
 }

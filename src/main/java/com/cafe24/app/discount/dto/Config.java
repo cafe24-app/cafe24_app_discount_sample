@@ -4,6 +4,7 @@ public class Config extends BaseModel {
 
     private int value;
     private String value_type;
+    private String discount_unit;
 
     public int getValue() {
         return value;
@@ -19,5 +20,13 @@ public class Config extends BaseModel {
 
     public void setValue_type(String value_type) {
         this.value_type = value_type;
+    }
+
+    public String getDiscount_unit() {
+        return discount_unit;
+    }
+
+    public void setDiscount_unit(String discount_unit) {
+        this.discount_unit = discount_unit;
     }
 }

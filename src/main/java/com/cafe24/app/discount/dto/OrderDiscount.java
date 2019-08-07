@@ -2,29 +2,29 @@ package com.cafe24.app.discount.dto;
 
 public class OrderDiscount extends BaseModel {
 
-    private String no;
-    private String price;
+    private int no;
+    private int price;
     private String apply_product;
 
-    public OrderDiscount(String no, String price, String apply_product) {
+    public OrderDiscount(int no, int price, String apply_product) {
         this.no = no;
         this.price = price;
         this.apply_product = apply_product;
     }
 
-    public String getNo() {
+    public int getNo() {
         return no;
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

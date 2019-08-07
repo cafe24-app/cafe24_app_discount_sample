@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cafe24.app</groupId>
-    <artifactId>discount</artifactId>
+    <artifactId>cafe24_app_discount</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>discount</name>
-    <description>Discount app sample</description>
+    <name>cafe24_app_discount</name>
+    <description>cafe24_app_discount</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

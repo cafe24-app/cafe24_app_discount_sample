@@ -77,7 +77,7 @@ public class AppController {
         log.info("admin codeQueryStr : {}", codeQueryStr);
 
         //데이터위변조 체크 - CSRF 공격대비
-        if(isValidState(codeQueryStr, session.getId()) == false)return "error";
+        if(!isValidState(codeQueryStr, session.getId()))return "error";
         log.info("데이터위변조 체크 : OK");
 
         MallInfo mallInfo = (MallInfo) session.getAttribute("MallInfo");

@@ -1,8 +1,8 @@
-var discount_App = (function () {
+var cafe24_discount_sample_app = (function () {
     'use strict';
     //TODO : 운영시 discount_url, client_id 수정
-    const discount_url = "[discount_url]";//<-------------------------------- [Discount url] 수정
-    const client_id = "[client_id]";      //<-------------------------------- [App key] 수정
+    const discount_url = "https://devmode.cafe24.com/discount_qa/order";//<-------------------------------- [Discount url] 수정
+    const client_id = "RTIQzB9OExDhANH07QKPsA";      //<-------------------------------- [App key] 수정
 
     return {
         discount_do: function (params) {            //App의 할인 로직 호출
@@ -35,24 +35,19 @@ var discount_App = (function () {
         },
         discount_init: function () {        //기본 정보 및 상품정보 세팅
             var app_discount_req_params = {};
-            var app_discount_products;
 
-            if (typeof (sPage) == 'undefined') {              //sPage 변수가 없을때
-                console.log("sPage 변수가 존재하지 않습니다.");
-                return;
-            } else if (sPage == 'ORDER_BASKET') {            //장바구니
-                app_discount_products = aBasketProductData;
-            } else if (sPage == 'ORDER_ORDERFORM') {        // 주문서
-                app_discount_products = aBasketProductOrderData;
-            }
-
-            //담긴 상품이 없으면 종료
-            if (app_discount_products.length <= 0) {
-                console.log("상품이 존재하지 않습니다.");
-                return;
-            }
-
-            app_discount_req_params.products = app_discount_products;
+            //장바구니 정보 조회
+            CAFE24API.getCartItemList(function (err, res) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    if (res.items.length > 0) {
+                        app_discount_req_params.products  = res.items;
+                    } else {
+                        console.log("There is no product in the basket.");
+                    }
+                }
+            });
 
             //CAFE24FrontAPI 활용 기본정보 조회
             (function (CAFE24API) {
@@ -70,7 +65,7 @@ var discount_App = (function () {
                         app_discount_req_params.member_id = res.id.member_id;
                     }
 
-                    discount_App.discount_do(app_discount_req_params);
+                    cafe24_discount_sample_app.discount_do(app_discount_req_params);
                 });
             })(CAFE24API.init(client_id));    //<-------------------------------- [App key] 수정
         }
@@ -83,10 +78,10 @@ if (document.readyState == 'complete') {
         if (oParam.event_type !== 'product_change') {
             return;
         }
-        discount_App.discount_init();
+        cafe24_discount_sample_app.discount_init();
     });
 
-    discount_App.discount_init();
+    cafe24_discount_sample_app.discount_init();
 } else {
-    window.addEventListener('load', discount_App.discount_init);
+    window.addEventListener('load', cafe24_discount_sample_app.discount_init);
 }

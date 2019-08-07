@@ -27,7 +27,6 @@ public class AppService {
      * @return
      */
     public String getCodeRedirectUrl(String mall_id, String requestedSessionId) {
-
         return storeToken.getCodeRedirectUrl(mall_id, requestedSessionId);
     }
 
@@ -59,7 +58,7 @@ public class AppService {
         AccessTokenRequest request = new AccessTokenRequest(mall_id);
 
         boolean has_token = storeToken.contains(mall_id);
-        log.info("setAccessToken has_token : {}" + has_token);
+        log.info("setAccessToken has_token : {}", has_token);
 
         if (has_token && !storeToken.token_expired(mall_id)) return;    // Access_token 만료 전
 
@@ -96,10 +95,7 @@ public class AppService {
      */
     public boolean isValidAccessToken(String mall_id) {
         /* 토큰이 있고 리프레시토큰이 유효하면 return true; */
-        if (storeToken.contains(mall_id) && !storeToken.refresh_token_expired(mall_id))
-            return true;
-
-        return false;
+        return storeToken.contains(mall_id) && !storeToken.refresh_token_expired(mall_id);
     }
 
 }
