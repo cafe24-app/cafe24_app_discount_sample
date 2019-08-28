@@ -71,7 +71,7 @@ public class AppService {
             request.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
             request.addBody("grant_type", "authorization_code");
-            request.addBody("redirect_uri", AppEnv.APP_BASE_URL + "/admin");
+            request.addBody("redirect_uri", AppEnv.APP_RETURN_URL);
             request.addBody("code", code);
         }
         log.info("setAccessToken request : {}", request.toString());

@@ -43,6 +43,7 @@ public class StoreToken implements Store<AccessToken> {
     public void put(String key, AccessToken value) {
         store.put(key, value);
     }
+
     /**
      * AccessToken 저장
      *
@@ -50,7 +51,7 @@ public class StoreToken implements Store<AccessToken> {
      */
     @Override
     public void remove(String key) {
-       store.remove(key);
+        store.remove(key);
     }
 
     /**
@@ -104,15 +105,20 @@ public class StoreToken implements Store<AccessToken> {
     public boolean token_expired(String key) {
         log.info("token_expired key : {}", key);
         AccessToken accessToken = this.store.get(key);
-        Date expires_at = null;
+
+        boolean isExpiredToken = true;
 
         try {
-            expires_at = simpleDateFormat.parse(accessToken.getExpires_at());
+            Date expires_at = simpleDateFormat.parse(accessToken.getExpires_at());
+            isExpiredToken = new Date().after(expires_at);
+
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+            isExpiredToken = false;
+        } finally {
+            return isExpiredToken;
 
-        return new Date().after(expires_at);
+        }
     }
 
     /**
@@ -132,7 +138,8 @@ public class StoreToken implements Store<AccessToken> {
             isExpiredToken = new Date().after(expires_at);
         } catch (ParseException e) {
             e.printStackTrace();
-        }finally {
+            isExpiredToken = false;
+        } finally {
             return isExpiredToken;
         }
     }
