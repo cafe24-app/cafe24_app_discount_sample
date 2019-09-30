@@ -1,6 +1,6 @@
 var cafe24_discount_sample_app = (function () {
     'use strict';
-    //TODO : 운영시 discount_url, client_id 수정
+    //TODO : discount_url, client_id 수정
     const discount_url = "[Discount url]";//<-------------------------------- [Discount url] 수정
     const client_id = "[App key]";        //<-------------------------------- [App key] 수정
 

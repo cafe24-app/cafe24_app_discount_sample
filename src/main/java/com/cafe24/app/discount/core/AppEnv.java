@@ -16,6 +16,4 @@ public class AppEnv {
     public static final String APP_RETURN_URL = "[App return url]"; //<-------------------------------- [App return url] 수정
     //TODO : 운영시 정보 기입 후 사용 : app scope
     public static final String APP_SCOPE = "mall.read_application,mall.write_application,mall.read_customer,mall.read_order";
-
-
 }
