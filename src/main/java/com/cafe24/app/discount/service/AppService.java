@@ -4,13 +4,18 @@ import com.cafe24.app.discount.api.request.AccessTokenRequest;
 import com.cafe24.app.discount.core.AppEnv;
 import com.cafe24.app.discount.core.store.StoreToken;
 import com.cafe24.app.discount.dto.AccessToken;
-import com.cafe24.app.discount.utils.Commons;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Date;
 
 @Service
 public class AppService {
@@ -31,21 +36,50 @@ public class AppService {
     }
 
     /**
-     * QueryString 체크
+     * timestamp 검증 : Replay Attack방지를 위해서 생성된 시간부터 일정 시간이 지난 호출의 경우 요청 무효화 처리(필수)
+     *
+     * @param timestamp
+     */
+    public void validationCheckTimestamp(String timestamp) throws Exception {
+        long time = new Date().getTime() / 1000;
+        long diffHour = (time - Integer.parseInt(timestamp)) / 3600;
+
+        // +-1 시간 이내의 요청만 허용
+        if (!(Math.abs(diffHour) < 1)) {
+            throw new Exception("request timed out");
+        }
+    }
+
+    /**
+     * hmac 검증 : 메시지의 무결성과 인증을 위해 메시지를 해싱하여 hmac값과 다를시 요청 무료화 처리(필수)
      *
      * @param query_string
      * @param hmac_cafe
-     * @return
      */
-    public boolean validationCheck(String query_string, String hmac_cafe) {
+    public void validationCheckHmac(String query_string, String hmac_cafe) throws Exception {
+        String made_hamc = "";
         String plain_query = query_string.substring(0, query_string.lastIndexOf("&"));
+        String secretKey = AppEnv.SECRET_KEY;
 
-        String made_hamc = Commons.makeHmac(plain_query, AppEnv.SECRET_KEY);
+        /**
+         * TEST Data
+         */
+        // plain_query = "is_multi_shop=T&lang=ko_KR&mall_id=jhbaek02&nation=KR&shop_no=1&timestamp=1622513360&user_id=jhbaek02&user_name=jhbaek02&user_type=P";
+        // hmac_cafe = "8%2BhYywQW5fBMpfbTlA1puAMpM91N0FYtrpzHYrdodDM%3D";
+        // secretKey = "zoQxSUptApmiFLRl2ChaxB";
 
-        log.info("validationCheck HMAC(cafe24) : {}", hmac_cafe);
-        log.info("validationCheck HMAC(app) : {}", made_hamc);
+        try {
+            Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(new SecretKeySpec(secretKey.getBytes(), "HmacSHA256"));
+            mac.update(plain_query.getBytes("UTF-8"));
+            made_hamc = org.apache.tomcat.util.codec.binary.Base64.encodeBase64String(mac.doFinal());
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeyException e) {
+            e.printStackTrace();
+        }
 
-        return hmac_cafe.equals(made_hamc);
+        if (!hmac_cafe.equals(made_hamc)) {
+            throw new Exception("Authentication failed");
+        }
     }
 
     /**
@@ -97,5 +131,4 @@ public class AppService {
         /* 토큰이 있고 리프레시토큰이 유효하면 return true; */
         return storeToken.contains(mall_id) && !storeToken.refresh_token_expired(mall_id);
     }
-
 }

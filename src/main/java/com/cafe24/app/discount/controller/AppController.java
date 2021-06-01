@@ -48,9 +48,12 @@ public class AppController {
         HttpSession session = request.getSession();
         session.setAttribute("MallInfo", MallInfo);
 
-        boolean is_valid_hmac = service.validationCheck(request.getQueryString(), MallInfo.getHmac());
-
-        if (!is_valid_hmac) return result;
+        try {
+            service.validationCheckTimestamp(MallInfo.getTimestamp());
+            service.validationCheckHmac(request.getQueryString(), MallInfo.getHmac());
+        } catch (Exception e) {
+            return result;
+        }
 
         if (service.isValidAccessToken(MallInfo.getMall_id())) {
             request.setAttribute("MallInfo", MallInfo);
